@@ -6,6 +6,6 @@ public class Solution {
 //    }
 
     public static int multiply(int x, int y){
-        return 0;
+        return x * y;
     }
 }
