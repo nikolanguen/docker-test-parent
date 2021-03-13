@@ -1,9 +1,8 @@
 package test.parent;
 
-import org.junit.Assert;
-import org.junit.Test;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 
 public class SolutionTest {
 
@@ -13,6 +12,6 @@ public class SolutionTest {
 
         int actual = Solution.multiply(3, 5);
 
-        Assert.assertEquals(expected, actual);
+        Assertions.assertEquals(expected, actual);
     }
 }
