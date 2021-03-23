@@ -53,7 +53,6 @@
                 <artifactId>maven-assembly-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
-<!--                    descriptors added by me-->
                     <descriptors>
                         <descriptor>src/main/assembly/assembly.xml</descriptor>
                     </descriptors>
@@ -68,7 +67,6 @@
                         <goals>
                             <goal>single</goal>
                         </goals>
-<!--                        configuration added by me-->
                         <configuration>
                             <archive>
                                 <manifest>
