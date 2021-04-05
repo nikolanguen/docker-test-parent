@@ -52,5 +52,6 @@ public class TestMain {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        System.out.println(args[0]);
     }
 }
