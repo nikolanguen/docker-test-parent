@@ -46,12 +46,13 @@ public class TestMain {
 //        System.out.println("Points won:");
 //        System.out.println(CustomTestExtension.pointsSum);
 
+        System.out.println(args[0]);
+
         HttpService httpService = new HttpService();
         try {
             httpService.sendTestResult(CustomTestExtension.pointsSum, new ArrayList<>());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(args[0]);
     }
 }
