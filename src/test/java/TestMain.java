@@ -1,3 +1,4 @@
+import model.FailedTestCase;
 import org.junit.platform.launcher.Launcher;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
 import org.junit.platform.launcher.core.LauncherDiscoveryRequestBuilder;
@@ -5,6 +6,7 @@ import org.junit.platform.launcher.core.LauncherFactory;
 import org.junit.platform.launcher.listeners.SummaryGeneratingListener;
 import org.junit.platform.launcher.listeners.TestExecutionSummary;
 import service.HttpService;
+import service.TestFailService;
 import test.extensions.CustomTestExtension;
 
 import java.io.IOException;
@@ -16,7 +18,7 @@ import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPacka
 
 public class TestMain {
 
-    public static SummaryGeneratingListener runTest() {
+    public static SummaryGeneratingListener runTests() {
         SummaryGeneratingListener listener = new SummaryGeneratingListener();
         LauncherDiscoveryRequest request = LauncherDiscoveryRequestBuilder.request()
                 .selectors(selectPackage("test.parent"))
@@ -27,32 +29,24 @@ public class TestMain {
         return listener;
     }
 
-    public static void formatFailures(List<TestExecutionSummary.Failure> failures) {
-        failures.forEach(failure -> {
-            System.out.println();
-            System.out.println("---------------------------FAIL-------------------");
-            System.out.println(failure.getTestIdentifier().getDisplayName());
-            System.out.println(failure.getException().getMessage());
-            System.out.println("--------------------------------------------------");
-            System.out.println();
-        });
-    }
 
     public static void main(String[] args) {
-        SummaryGeneratingListener listener = runTest();
+        TestFailService failService = new TestFailService();
+        SummaryGeneratingListener listener = runTests();
         TestExecutionSummary summary = listener.getSummary();
-//        summary.printTo(new PrintWriter(System.out));
-        formatFailures(summary.getFailures());
-//        System.out.println("Points won:");
-//        System.out.println(CustomTestExtension.pointsSum);
+        List<FailedTestCase> fails = failService.formatFailures(summary.getFailures());
+        failService.printFails(fails);
+        System.out.println("Points won:");
+        System.out.println(CustomTestExtension.pointsSum);
 
-        System.out.println("argument " + args[0]);
+//        System.out.println("username: " + args[0]);
 
         HttpService httpService = new HttpService();
         try {
-            httpService.sendTestResult(CustomTestExtension.pointsSum, new ArrayList<>());
+            httpService.sendTestResult("georgi_username", CustomTestExtension.pointsSum, fails);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 }

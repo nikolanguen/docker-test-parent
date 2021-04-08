@@ -1,5 +1,6 @@
 package service;
 
+import model.FailedTestCase;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -12,15 +13,16 @@ import java.util.List;
 
 public class HttpService {
 
-    private static final String URL = "http:localhost:8080/test/result";
+//    private static final String URL = "http:localhost:8082/test/result";
+    private static final String URL = "http:host.docker.internal:8082/test/result";
     private OkHttpClient httpClient;
 
     public HttpService() {
         this.httpClient = new OkHttpClient();
     }
 
-    public void sendTestResult(int points, List<String> failedTestCases) throws IOException {
-        JSONObject testsResult = buildJsonTestsResultObject(points, failedTestCases);
+    public void sendTestResult(String username, int points, List<FailedTestCase> failedTestCases) throws IOException {
+        JSONObject testsResult = buildJsonTestsResultObject(username, points, failedTestCases);
         RequestBody body = buildRequestBody(testsResult);
         Request request = buildRequest(URL, body);
 
@@ -34,13 +36,25 @@ public class HttpService {
                 .build();
     }
 
-    private JSONObject buildJsonTestsResultObject(int points, List<String> failedTestCases) {
+    private JSONObject buildJsonTestsResultObject(String username, int points, List<FailedTestCase> failedTestCases) {
         JSONObject testsResult = new JSONObject();
-        testsResult.put("points", points);
-        JSONArray failedCases = new JSONArray();
-        failedCases.addAll(failedTestCases);
-        testsResult.put("failedTestCases", failedCases);
+        testsResult.putIfAbsent("username", username);
+        testsResult.putIfAbsent("points", points);
+        JSONArray failedCases = generateFailedTestCasesJsonArray(failedTestCases);
+        testsResult.putIfAbsent("failedTestCases", failedCases);
+
         return testsResult;
+    }
+
+    private JSONArray generateFailedTestCasesJsonArray(List<FailedTestCase> failedTestCases){
+        JSONArray failedCases = new JSONArray();
+        failedTestCases.forEach(failedTestCase -> {
+            JSONObject failedCase = new JSONObject();
+            failedCase.putIfAbsent("methodName", failedTestCase.getMethodName());
+            failedCase.putIfAbsent("expected", failedTestCase.getExpected());
+            failedCases.add(failedCase);
+        });
+        return failedCases;
     }
 
     private RequestBody buildRequestBody(JSONObject testsResult) {
