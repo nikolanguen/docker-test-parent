@@ -13,8 +13,7 @@ import java.util.List;
 
 public class HttpService {
 
-//    private static final String URL = "http:localhost:8082/test/result";
-    private static final String URL = "http:host.docker.internal:8082/test/result";
+    private static final String URL = "http:host.docker.internal:8081/test/result";
     private OkHttpClient httpClient;
 
     public HttpService() {
