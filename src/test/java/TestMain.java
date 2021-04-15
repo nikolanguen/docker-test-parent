@@ -36,7 +36,7 @@ public class TestMain {
         TestExecutionSummary summary = listener.getSummary();
         List<FailedTestCase> fails = failService.formatFailures(summary.getFailures());
 //        failService.printFails(fails);
-        System.out.println("Points won:")
+        System.out.println("Points won:");
         System.out.println(CustomTestExtension.pointsSum);
 
 //        System.out.println("username: " + args[0]);
