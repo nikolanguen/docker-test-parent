@@ -43,7 +43,7 @@ public class TestMain {
 
         HttpService httpService = new HttpService();
         try {
-            httpService.sendTestResult("kaloyan-dutsolov6", CustomTestExtension.pointsSum, fails);
+            httpService.sendTestResult(args[0], CustomTestExtension.pointsSum, fails);
         } catch (IOException e) {
             e.printStackTrace();
         }
