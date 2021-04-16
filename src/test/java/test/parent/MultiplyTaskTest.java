@@ -21,7 +21,7 @@ public class MultiplyTaskTest {
             @ArraySource(array = {5, 5, 25}),
             @ArraySource(array = {-1, -67, 67})
     })
-    void testNumbers(int[] args) {
+    void multiplyTest(int[] args) {
         //Arrange
         int expected = args[2];
         //Act
