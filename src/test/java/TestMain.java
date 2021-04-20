@@ -41,7 +41,7 @@ public class TestMain {
 
 //        System.out.println("username: " + args[0]);
 
-        HttpService httpService = new HttpService();
+        HttpService httpService = new HttpService()
         try {
             httpService.sendTestResult(args[0], CustomTestExtension.pointsSum, fails);
         } catch (IOException e) {
