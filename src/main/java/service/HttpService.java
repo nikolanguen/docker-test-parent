@@ -21,7 +21,6 @@ public class HttpService {
     }
 
     public void sendTestResult(String username, int points, List<FailedTestCase> failedTestCases) throws IOException {
-        System.out.println("username in http service: " + username);
         JSONObject testsResult = buildJsonTestsResultObject(username, points, failedTestCases);
         RequestBody body = buildRequestBody(testsResult);
         Request request = buildRequest(URL, body);
