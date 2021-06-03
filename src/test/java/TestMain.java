@@ -39,7 +39,7 @@ public class TestMain {
         System.out.println("Points won:");
         System.out.println(CustomTestExtension.pointsSum);
 
-//        System.out.println("username: " + args[0]);
+        System.out.println("username: " + args[0]);
 
         HttpService httpService = new HttpService();
         try {
