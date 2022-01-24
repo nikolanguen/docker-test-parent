@@ -34,7 +34,7 @@ public class HttpService {
     private Request buildRequest(String url, RequestBody body) {
         return new Request.Builder()
                 .url(url)
-                .addHeader("Authorization", "Bearer " + accessTokenUtil.getAccessToken())
+                .header("Authorization", "Bearer " + accessTokenUtil.getAccessToken())
                 .post(body)
                 .build();
     }
