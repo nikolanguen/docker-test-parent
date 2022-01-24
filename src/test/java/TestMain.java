@@ -41,7 +41,7 @@ public class TestMain {
 //        failService.printFails(fails);
         System.out.println("Points won:");
         System.out.println(CustomTestExtension.pointsSum);
-        System.out.println("client_id is " + applicationConfig.getOauth().getClientId());
+      //  System.out.println("client_id is " + applicationConfig.getOauth().getClientId());
 
 
         HttpService httpService = new HttpService();
