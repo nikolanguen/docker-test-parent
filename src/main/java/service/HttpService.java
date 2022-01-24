@@ -21,6 +21,7 @@ public class HttpService {
     public HttpService() {
         this.httpClient = new OkHttpClient();
         this.accessTokenUtil = new AccessTokenUtil();
+        System.out.println("getting a_t in httpService init ---- >" + accessTokenUtil.getAccessToken());
     }
 
     public void sendTestResult(String username, int points, List<FailedTestCase> failedTestCases) throws IOException {
