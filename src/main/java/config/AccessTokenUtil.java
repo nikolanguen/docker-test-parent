@@ -40,7 +40,7 @@ public class AccessTokenUtil {
                 Base64Utils.encodeToString("dojo-code-execution:zDNgnOjA23cgthv8EoBtM3ms5nyuervS".getBytes());
 
         String response = Objects.requireNonNull(webClient.post()
-                        .uri("http:host.docker.internal:8180/auth/realms/dojo-realm/protocol/openid-connect/token")
+                        .uri("http://127.0.0.1:8180/auth/realms/dojo-realm/protocol/openid-connect/token")
                         .header("Authorization", "Basic " + encodedClientData)
                         .body(BodyInserters.fromFormData("grant_type", "client_credentials"))
                         .retrieve()
