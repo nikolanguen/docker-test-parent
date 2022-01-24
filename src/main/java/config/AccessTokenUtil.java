@@ -18,21 +18,21 @@ public class AccessTokenUtil {
     private final WebClient webClient = WebClient.builder().build();
 
 
-    public String getOAuthDetail()  {
-        URL url = AccessTokenUtil.class.getResource("application.yml");
-        File file = new File(url.getPath());
-
-        ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
-        ApplicationConfig config = null;
-
-        try {
-            config = objectMapper.readValue(file, ApplicationConfig.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return config.getOauth().getClientId();
-    }
+//    public String getOAuthDetail()  {
+//        URL url = AccessTokenUtil.class.getResource("application.yml");
+//        File file = new File(url.getPath());
+//
+//        ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
+//        ApplicationConfig config = null;
+//
+//        try {
+//            config = objectMapper.readValue(file, ApplicationConfig.class);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return config.getOauth().getClientId();
+//    }
 
     public String getAccessToken() {
 
@@ -50,7 +50,8 @@ public class AccessTokenUtil {
                 .toString();
 
         System.out.println("getting access token");
-        System.out.println("client_id is " + getOAuthDetail());
+    //    System.out.println("client_id is " + getOAuthDetail());
+     //   System.out.println(response);
 
         return response;
     }

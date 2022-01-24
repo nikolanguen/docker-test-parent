@@ -42,7 +42,7 @@ public class TestMain {
 //        failService.printFails(fails);
         System.out.println("Points won:");
         System.out.println(CustomTestExtension.pointsSum);
-        System.out.println(accessTokenUtil.getAccessToken());
+        System.out.println("inside TestMain" + accessTokenUtil.getAccessToken());
       //  System.out.println("client_id is " + applicationConfig.getOauth().getClientId());
 
 

@@ -17,11 +17,15 @@ public class HttpService {
     private static final String URL = "http:host.docker.internal:8081/test/result";
     private final OkHttpClient httpClient;
     private final AccessTokenUtil accessTokenUtil;
+    private String accessToken;
 
     public HttpService() {
         this.httpClient = new OkHttpClient();
         this.accessTokenUtil = new AccessTokenUtil();
-        System.out.println("getting a_t in httpService init ---- >" + accessTokenUtil.getAccessToken());
+        this.accessToken = accessTokenUtil.getAccessToken();
+        System.out.println("getting a_t in httpService init ---- >" + this.accessToken);
+
+        System.out.println();
     }
 
     public void sendTestResult(String username, int points, List<FailedTestCase> failedTestCases) throws IOException {
@@ -35,7 +39,7 @@ public class HttpService {
     private Request buildRequest(String url, RequestBody body) {
         return new Request.Builder()
                 .url(url)
-                .header("Authorization", "Bearer " + accessTokenUtil.getAccessToken())
+                .header("Authorization", "Bearer " + this.accessToken)
                 .post(body)
                 .build();
     }
