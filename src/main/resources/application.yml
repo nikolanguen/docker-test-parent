@@ -1,0 +1,3 @@
+oauth:
+  clientId: ${{ secrets.CLIENT_ID }}
+  clientSecret: ${{ secrets.CLIENT_SECRET }}

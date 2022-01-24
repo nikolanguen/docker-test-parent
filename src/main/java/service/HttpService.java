@@ -1,5 +1,6 @@
 package service;
 
+import config.AccessTokenUtil;
 import model.FailedTestCase;
 import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
@@ -14,10 +15,12 @@ import java.util.List;
 public class HttpService {
 
     private static final String URL = "http:host.docker.internal:8081/test/result";
-    private OkHttpClient httpClient;
+    private final OkHttpClient httpClient;
+    private final AccessTokenUtil accessTokenUtil;
 
     public HttpService() {
         this.httpClient = new OkHttpClient();
+        this.accessTokenUtil = new AccessTokenUtil();
     }
 
     public void sendTestResult(String username, int points, List<FailedTestCase> failedTestCases) throws IOException {
@@ -31,6 +34,7 @@ public class HttpService {
     private Request buildRequest(String url, RequestBody body) {
         return new Request.Builder()
                 .url(url)
+                .addHeader("Authorization", "Bearer " + accessTokenUtil.getAccessToken())
                 .post(body)
                 .build();
     }
