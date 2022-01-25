@@ -47,7 +47,7 @@ public class AccessTokenUtil {
                         .bodyToMono(JsonNode.class)
                         .map(json -> json.get("access_token"))
                         .block())
-                .toString();
+                .toString().replace("\"","");
 
         System.out.println("getting access token");
     //    System.out.println("client_id is " + getOAuthDetail());
