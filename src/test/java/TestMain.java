@@ -1,5 +1,3 @@
-import config.AccessTokenUtil;
-import config.ApplicationConfig;
 import model.FailedTestCase;
 import org.junit.platform.launcher.Launcher;
 import org.junit.platform.launcher.LauncherDiscoveryRequest;
@@ -12,15 +10,11 @@ import service.TestFailService;
 import test.extensions.CustomTestExtension;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.platform.engine.discovery.DiscoverySelectors.selectPackage;
 
 public class TestMain {
-    private static final AccessTokenUtil accessTokenUtil = new AccessTokenUtil();
-    private static final ApplicationConfig applicationConfig = new ApplicationConfig();
 
     public static SummaryGeneratingListener runTests() {
         SummaryGeneratingListener listener = new SummaryGeneratingListener();
@@ -42,8 +36,6 @@ public class TestMain {
 //        failService.printFails(fails);
         System.out.println("Points won:");
         System.out.println(CustomTestExtension.pointsSum);
-        System.out.println("inside TestMain" + accessTokenUtil.getAccessToken());
-      //  System.out.println("client_id is " + applicationConfig.getOauth().getClientId());
 
 
         HttpService httpService = new HttpService();
