@@ -21,8 +21,6 @@ public class HttpService {
     public HttpService() {
         this.httpClient = new OkHttpClient();
         this.accessTokenUtil = new AccessTokenUtil();
-
-        System.out.println();
     }
 
     public void sendTestResult(String username, int points, List<FailedTestCase> failedTestCases) throws IOException {
@@ -34,11 +32,9 @@ public class HttpService {
     }
 
     private Request buildRequest(String url, RequestBody body) {
-        String accessToken = accessTokenUtil.getAccessToken();
-        System.out.println("Getting access_token in buildRequest --- >" + accessToken);
         return new Request.Builder()
                 .url(url)
-                .header("Authorization", "Bearer " + accessToken)
+                .header("Authorization", "Bearer " + accessTokenUtil.getAccessToken())
                 .post(body)
                 .build();
     }
@@ -53,7 +49,7 @@ public class HttpService {
         return testsResult;
     }
 
-    private JSONArray generateFailedTestCasesJsonArray(List<FailedTestCase> failedTestCases){
+    private JSONArray generateFailedTestCasesJsonArray(List<FailedTestCase> failedTestCases) {
         JSONArray failedCases = new JSONArray();
         failedTestCases.forEach(failedTestCase -> {
             JSONObject failedCase = new JSONObject();

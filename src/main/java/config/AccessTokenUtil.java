@@ -1,15 +1,10 @@
 package config;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
 import org.springframework.util.Base64Utils;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.Objects;
 
 public class AccessTokenUtil {
@@ -17,27 +12,10 @@ public class AccessTokenUtil {
 
     private final WebClient webClient = WebClient.builder().build();
 
-
-//    public String getOAuthDetail()  {
-//        URL url = AccessTokenUtil.class.getResource("application.yml");
-//        File file = new File(url.getPath());
-//
-//        ObjectMapper objectMapper = new ObjectMapper(new YAMLFactory());
-//        ApplicationConfig config = null;
-//
-//        try {
-//            config = objectMapper.readValue(file, ApplicationConfig.class);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return config.getOauth().getClientId();
-//    }
-
     public String getAccessToken() {
 
         String encodedClientData =
-                Base64Utils.encodeToString("docker:yJO2ncRGDTp9aw7dAWBpahVSNxbaMIZB".getBytes());
+                Base64Utils.encodeToString("docker:4gy07SpIhwDghk8ngPuigkM2HUpL2faD".getBytes());
 
         String response = Objects.requireNonNull(webClient.post()
                         .uri("host.docker.internal:8180/auth/realms/dojo-realm/protocol/openid-connect/token")
@@ -50,8 +28,6 @@ public class AccessTokenUtil {
                 .toString().replace("\"","");
 
         System.out.println("getting access token");
-    //    System.out.println("client_id is " + getOAuthDetail());
-     //   System.out.println(response);
 
         return response;
     }
