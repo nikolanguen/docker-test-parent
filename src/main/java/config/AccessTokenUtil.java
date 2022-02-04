@@ -27,8 +27,6 @@ public class AccessTokenUtil {
                         .block())
                 .toString().replace("\"","");
 
-        System.out.println("getting access token");
-
         return response;
     }
 }
