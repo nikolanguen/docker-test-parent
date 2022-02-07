@@ -27,6 +27,10 @@ public class AccessTokenUtil {
                         .block())
                 .toString().replace("\"","");
 
+        String test = System.getenv("repo_name");
+
+        System.out.println(test);
+
         return response;
     }
 }
