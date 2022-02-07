@@ -15,8 +15,13 @@ public class AccessTokenUtil {
 
     public String getAccessToken() {
 
+        String clientId = System.getenv("client_id");
+        String clientSecret = System.getenv("client_secret");
+
+        System.out.println(clientId + " --- " + clientSecret);
+
         String encodedClientData =
-                Base64Utils.encodeToString("docker:4gy07SpIhwDghk8ngPuigkM2HUpL2faD".getBytes());
+                Base64Utils.encodeToString((clientId + ":" + clientSecret).getBytes());
 
         String response = Objects.requireNonNull(webClient.post()
                         .uri("host.docker.internal:8180/auth/realms/dojo-realm/protocol/openid-connect/token")
@@ -27,10 +32,6 @@ public class AccessTokenUtil {
                         .map(json -> json.get("access_token"))
                         .block())
                 .toString().replace("\"","");
-
-        Map<String, String> env = System.getenv();
-
-        env.forEach((k, v) -> System.out.println(k + ":" + v));
 
         return response;
     }
