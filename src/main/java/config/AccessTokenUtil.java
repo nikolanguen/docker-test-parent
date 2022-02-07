@@ -5,6 +5,7 @@ import org.springframework.util.Base64Utils;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import java.util.Map;
 import java.util.Objects;
 
 public class AccessTokenUtil {
@@ -27,9 +28,9 @@ public class AccessTokenUtil {
                         .block())
                 .toString().replace("\"","");
 
-        String test = System.getenv("repo_name");
+        Map<String, String> env = System.getenv();
 
-        System.out.println(test);
+        env.forEach((k, v) -> System.out.println(k + ":" + v));
 
         return response;
     }
